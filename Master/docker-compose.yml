@@ -1,0 +1,77 @@
+version: '3'
+
+services:
+  qmk_api_tasks:
+    build: ../qmk_api_tasks
+    command: /bin/true
+    ports:
+      - "5002:5000"
+    environment:
+      PYTHONUNBUFFERED: 1
+      API_URL: http://qmk_api:5001/
+      #DISCORD_WEBHOOK_URL: <Your private webhook URL>
+      MSG_ON_GOOD_COMPILE: "no"
+      MSG_ON_BAD_COMPILE: "no"
+      MSG_ON_S3_SUCCESS: "no"
+      REDIS_HOST: redis
+      RELOAD: 1
+      S3_HOST: http://minio:9000
+      S3_ACCESS_KEY: minio_dev
+      S3_SECRET_KEY: minio_dev_secret
+      UPDATE_API: 'true'
+    volumes:
+      - ../qmk_api_tasks:/qmk_api_tasks
+      - ../qmk_compiler:/qmk_compiler
+
+  qmk_bot:
+    build: ../qmk_bot
+    environment:
+      #DISCORD_WEBHOOK_URL: <Your private webhook URL>
+      PYTHONUNBUFFERED: 1
+      API_URL: http://qmk_api:5001/
+      REDIS_HOST: redis
+      RELOAD: 1
+      S3_HOST: http://minio:9000
+    volumes:
+    - ../qmk_bot:/qmk_bot
+    - ../qmk_compiler:/qmk_compiler
+
+  qmk_configurator:
+    build: ../qmk_configurator
+    ports:
+      - "5000:80"
+    environment:
+      QMK_API_URL: http://qmk_api:5001
+    # To use this you need to have built it locally, IE qmk_configurator/dist needs to exist.
+    #volumes:
+    #  - ../qmk_configurator:/qmk_configurator
+
+  minio:
+    image: minio/minio
+    volumes:
+      - minio_data:/data
+    ports:
+      - "9000:9000"
+    environment:
+      MINIO_ACCESS_KEY: minio_dev
+      MINIO_SECRET_KEY: minio_dev_secret
+      PYTHONUNBUFFERED: 1
+      S3_ACCESS_KEY: minio_dev
+      S3_SECRET_KEY: minio_dev_secret
+    command: server minio_data
+    restart: always
+
+  redis:
+    image: qmkfm/redis
+    ports:
+      - "6379:6379"
+    restart: always
+
+  graphite:
+    image: qmkfm/qmk_graphite
+    ports:
+      - "5003:80"
+    restart: always
+
+volumes:
+    minio_data:

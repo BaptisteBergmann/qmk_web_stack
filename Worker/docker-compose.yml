@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  qmk_compiler:
+    build: ../qmk_compiler
+    environment:
+      GRAPHITE_HOST: qmk_metrics_aggregator
+      MINIO_ACCESS_KEY: minio_dev
+      MINIO_SECRET_KEY: minio_dev_secret
+      PYTHONUNBUFFERED: 1
+      API_URL: http://qmk_api:5001/
+      LOG_LEVEL: DEBUG
+      #QMK_GIT_URL: https://github.com/qmk/qmk_firmware.git
+      #QMK_GIT_BRANCH: master
+      REDIS_HOST: redis
+      RELOAD: 1
+      S3_HOST: http://minio:9000
+    volumes:
+    - ../qmk_compiler:/qmk_compiler
+
+  qmk_metrics_aggregator:
+    build: ../qmk_metrics_aggregator
+    environment:
+      PYTHONUNBUFFERED: 1
+      METRIC_TTL: 600
+      GRAPHITE_HOST: graphite
+      GRAPHITE_RESOLUTION: 60
+    volumes:
+    - ../qmk_metrics_aggregator/qmk_metrics_aggregator:/qmk_metrics_aggregator
