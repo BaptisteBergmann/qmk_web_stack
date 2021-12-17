@@ -23,6 +23,6 @@ services:
   qmk_configurator:
     build: ../qmk_configurator
     ports:
-      - "5000:80"
+      - "80:80"
     environment:
       QMK_API_URL: http://qmk_api:5001
