@@ -8,7 +8,7 @@ services:
       - "5002:5000"
     environment:
       PYTHONUNBUFFERED: 1
-      API_URL: http://qmk_api:5001/
+      API_URL: http://ec2-52-23-211-143.compute-1.amazonaws.com:5001/
       #DISCORD_WEBHOOK_URL: <Your private webhook URL>
       MSG_ON_GOOD_COMPILE: "no"
       MSG_ON_BAD_COMPILE: "no"
@@ -28,7 +28,7 @@ services:
     environment:
       #DISCORD_WEBHOOK_URL: <Your private webhook URL>
       PYTHONUNBUFFERED: 1
-      API_URL: http://qmk_api:5001/
+      API_URL: http://ec2-52-23-211-143.compute-1.amazonaws.com:5001/
       REDIS_HOST: redis
       RELOAD: 1
       S3_HOST: http://minio:9000
@@ -36,15 +36,28 @@ services:
     - ../qmk_bot:/qmk_bot
     - ../qmk_compiler:/qmk_compiler
 
-  qmk_configurator:
-    build: ../qmk_configurator
-    ports:
-      - "5000:80"
-    environment:
-      QMK_API_URL: http://qmk_api:5001
+  #qmk_configurator:
+  #  build: ../qmk_configurator
+  #  ports:
+  #    - "5000:80"
+  #  environment:
+  #    QMK_API_URL: http://ec2-52-23-211-143.compute-1.amazonaws.com:5001
     # To use this you need to have built it locally, IE qmk_configurator/dist needs to exist.
     #volumes:
     #  - ../qmk_configurator:/qmk_configurator
+
+  qmk_metrics_aggregator:
+    build: ../qmk_metrics_aggregator
+    ports:
+      - "2023:2023"
+    environment:
+      PYTHONUNBUFFERED: 1
+      METRIC_TTL: 600
+      GRAPHITE_HOST: graphite
+      GRAPHITE_RESOLUTION: 60
+    volumes:
+    - ../qmk_metrics_aggregator/qmk_metrics_aggregator:/qmk_metrics_aggregator
+
 
   minio:
     image: minio/minio
