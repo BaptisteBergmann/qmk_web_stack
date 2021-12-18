@@ -8,7 +8,7 @@ services:
       MINIO_ACCESS_KEY: minio_dev
       MINIO_SECRET_KEY: minio_dev_secret
       PYTHONUNBUFFERED: 1
-      API_URL: http://log8415-API-elb-1744024168.us-east-1.elb.amazonaws.com:5001/
+      API_URL: http://log8415-API-elb-1744024168.us-east-1.elb.amazonaws.com/
       LOG_LEVEL: DEBUG
       #QMK_GIT_URL: https://github.com/qmk/qmk_firmware.git
       #QMK_GIT_BRANCH: master
