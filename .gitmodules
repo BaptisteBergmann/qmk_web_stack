@@ -1,23 +1,24 @@
 [submodule "qmk_compiler"]
 	path = qmk_compiler
-	url = https://github.com/qmk/qmk_compiler.git
+	url = https://github.com/BaptisteBergmann/qmk_compiler.git
 	branch = .
 [submodule "qmk_api"]
 	path = qmk_api
-	url = https://github.com/qmk/qmk_api.git
+	url = https://github.com/BaptisteBergmann/qmk_api.git
 	branch = .
 [submodule "qmk_configurator"]
 	path = qmk_configurator
-	url = https://github.com/qmk/qmk_configurator.git
+	url = https://github.com/BaptisteBergmann/qmk_configurator.git
 	branch = .
 [submodule "qmk_api_tasks"]
 	path = qmk_api_tasks
-	url = https://github.com/qmk/qmk_api_tasks.git
+	url = https://github.com/BaptisteBergmann/qmk_api_tasks.git
 	branch = .
 [submodule "qmk_bot"]
 	path = qmk_bot
-	url = https://github.com/qmk/qmk_bot.git
+	url = https://github.com/BaptisteBergmann/qmk_bot.git
 	branch = .
 [submodule "qmk_metrics_aggregator"]
 	path = qmk_metrics_aggregator
-	url = https://github.com/qmk/qmk_metrics_aggregator.git
+	url = https://github.com/BaptisteBergmann/qmk_metrics_aggregator.git
+	branch = .
