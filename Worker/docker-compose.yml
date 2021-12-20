@@ -4,16 +4,16 @@ services:
   qmk_compiler:
     build: ../qmk_compiler
     environment:
-      GRAPHITE_HOST: ec2-18-207-221-22.compute-1.amazonaws.com
+      GRAPHITE_HOST: log8415-DB-elb-1162769022.us-east-1.elb.amazonaws.com
       MINIO_ACCESS_KEY: minio_dev
       MINIO_SECRET_KEY: minio_dev_secret
       PYTHONUNBUFFERED: 1
-      API_URL: http://log8415-API-elb-1744024168.us-east-1.elb.amazonaws.com/
+      API_URL: http://log8415-API-elb-2003970028.us-east-1.elb.amazonaws.com/
       LOG_LEVEL: DEBUG
       #QMK_GIT_URL: https://github.com/qmk/qmk_firmware.git
       #QMK_GIT_BRANCH: master
-      REDIS_HOST: ec2-18-207-221-22.compute-1.amazonaws.com
+      REDIS_HOST: log8415-DB-elb-1162769022.us-east-1.elb.amazonaws.com
       RELOAD: 1
-      S3_HOST: http://ec2-18-207-221-22.compute-1.amazonaws.com:9000
+      S3_HOST: http://log8415-DB-elb-1162769022.us-east-1.elb.amazonaws.com:9000
     volumes:
     - ../qmk_compiler:/qmk_compiler
