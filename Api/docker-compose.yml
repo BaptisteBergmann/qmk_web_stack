@@ -25,4 +25,4 @@ services:
     ports:
       - "80:80"
     environment:
-      QMK_API_URL: http://qmk_api
+      QMK_API_URL: http://qmk_api:5001
